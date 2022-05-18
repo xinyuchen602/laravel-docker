@@ -43,6 +43,10 @@ Hemos separado las funcionalidades a implementar entre los tres miembros del equ
 
 
 
+## Error cometido
+
+- Al hacer json_decode a la API de coin nos devuelve un array de json para acceder a los elementos hay que hacer algo como $response = $responde[0].
+
 
 ## Trabajo completado
 
