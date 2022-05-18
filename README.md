@@ -1,34 +1,55 @@
-Laravel docker
-
-The project must be mounted using docker:
-
-- Start docker daemon
-- Run your docker machine: docker-compose up -d
 
 
-- Go inside the machine:
-  - docker exec -it laravel-php /bin/zsh
+# Cryptocurrency wallet
+
+
+
+### Proyecto final Verificación y Validación del Software
+
+
+
+## Metodología de trabajo
+
+Hemos trabajo separando las funcionalidades, implementando primero las partes que no se relacionan con el resto para que los diferentes miembros pudiéramos trabajar de manera paralela.
+
+
+
+Una vez que estas funcionalidades estaban implementadas y sus respectivos tests funcionaban, hemos realizado el resto de funcionalidades que SÍ se relacionan entre sí. Desarrollando el código de manera que se haga primero lo que se necesita en otras partes.
+
+
+
+
+
+## Organización del trabajo
+
+Hemos separado las funcionalidades a implementar entre los tres miembros del equipo (haciendo dos cada miembro). 
+
+
+
   
 
-- From inside the machine:
-  - Run: composer install
-  - Copy the .env.example to .env
-  - Run: php artisan key:generate
-  
+## Pasos seguidos
 
-- Web running on http://localhost:8088
+- Reunión del equipo para revisar que trabajo teníamos que realizar y que funcionalidades íbamos a implementar.
 
+- Asignación de dos funcionalidades a cada miembro teniendo en cuenta la relación que observamos entre las distintas funcionalidades (cuales se podían hacer de manera paralela).
 
-- Api status check running on GET request: http://localhost:8088/api/status
+- Desarrollo de las funcionalidades y sus respectivos tests.
 
+- Puesta en común de lo realizado y desarrollo por orden de las funcionalidades que dependen de otras.
 
-- Swagger running on http://localhost:8082/
+- Merge de las distintas ramas y comprobación de que todo sigue funcionando.
 
 
-- Postman base collection file can be found on src/postman
 
 
-- To stop de container:
-  docker-compose stop
+
+## Trabajo completado
+
+Hemos completado los seis puntos especificados en el swagger con sus respectivos tests correctos.
+
+
+
+
 
 :)
