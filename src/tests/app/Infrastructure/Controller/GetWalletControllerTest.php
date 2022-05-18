@@ -70,11 +70,7 @@ class GetWalletControllerTest extends TestCase
         $response = $this->get('/api/wallet/' . $wallet_id);
 
         $response->assertExactJson([
-        '[{"coin_id":"90",
-        "name":"Bitcoin",
-        "symbol":"BTC",
-        "amount":1,
-        "value_usd":29452.05}]'
+        '[{"coin_id":"90","name":"Bitcoin","symbol":"BTC","amount":1,"value_usd":29452.05}]'
         ]);
     }
 
