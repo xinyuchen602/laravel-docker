@@ -24,7 +24,7 @@ class CoinService
     }
 
     /**use App\Domain\Coin;
- * @param string $coin_id
+     * @param string $coin_id
      * @return Coin|Exception
      * @throws Exception
      */
