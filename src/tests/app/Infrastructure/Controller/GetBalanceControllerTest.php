@@ -2,14 +2,15 @@
 
 namespace Tests\app\Infrastructure\Controller;
 
+use App\Application\CoinDataSource\CoinDataSource;
+use App\Application\WalletDataSource\WalletDataSource;
 use App\Domain\Coin;
-use Mockery;
-use App\Application\UserDataSource\WalletDataSource;
 use App\Domain\Wallet;
-use Exception;
+use Mockery;
 use Tests\TestCase;
+use Exception;
 
-class GetWalletControllerTest extends TestCase
+class GetBalanceControllerTest extends TestCase
 {
     private WalletDataSource $walletDataSource;
 
@@ -19,6 +20,9 @@ class GetWalletControllerTest extends TestCase
 
         $this->walletDataSource = Mockery::mock(WalletDataSource::class);
         $this->app->bind(WalletDataSource::class, fn () => $this->walletDataSource);
+
+        $this->coinDataSource = Mockery::mock(coinDataSource::class);
+        $this->app->bind(coinDataSource::class, fn() => $this->coinDataSource);
     }
 
     /**
@@ -33,7 +37,7 @@ class GetWalletControllerTest extends TestCase
             ->with($wallet_id)
             ->andThrow(new Exception("A wallet with the specified ID was not found."));
 
-        $response = $this->get('/api/wallet/' . $wallet_id);
+        $response = $this->get('/api/wallet/' . $wallet_id.'/balance');
         $response->assertExactJson(['error' => 'A wallet with the specified ID was not found.']);
     }
 
@@ -49,7 +53,7 @@ class GetWalletControllerTest extends TestCase
             ->with($wallet_id)
             ->andThrow(new Exception("Service unavailable"));
 
-        $response = $this->get('/api/wallet/' . $wallet_id);
+        $response = $this->get('/api/wallet/' . $wallet_id.'/balance');
         $response->assertExactJson(['error' => 'Service unavailable']);
     }
 
@@ -58,22 +62,32 @@ class GetWalletControllerTest extends TestCase
      */
     public function walletFound()
     {
+
+        $id = '90';
+        $coin2 = new Coin(1,"90","Bitcoin","bitcoin",1,"BTC",29000);
         $wallet_id = 1;
-        $coin = new Coin(1,"90","Bitcoin","bitcoin",1,"BTC",29452.05);
+        $coin = new Coin(1,"90","Bitcoin","bitcoin",1,"BTC",29452);
         $wallet = new Wallet($wallet_id,[$coin]);
+
+        $this->coinDataSource
+            ->expects('findByCoinId')
+            ->with($id)
+            ->once()
+            ->andReturn($coin2);
+
         $this->walletDataSource
             ->expects('get')
             ->once()
             ->with($wallet_id)
             ->andReturn($wallet);
 
-        $response = $this->get('/api/wallet/' . $wallet_id);
+
+        $response = $this->get('/api/wallet/' . $wallet_id.'/balance');
 
         $response->assertExactJson([
-        '[{"coin_id":"90","name":"Bitcoin","symbol":"BTC","amount":1,"value_usd":29452.05}]'
+            "balance_usd: -452"
         ]);
     }
 
 
 }
-

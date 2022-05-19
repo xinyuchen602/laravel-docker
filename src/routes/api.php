@@ -1,5 +1,6 @@
 <?php
 
+use App\Infrastructure\Controllers\GetBalanceController;
 use App\Infrastructure\Controllers\GetCoinController;
 use App\Infrastructure\Controllers\BuyCoinController;
 use App\Infrastructure\Controllers\SellCoinController;
@@ -39,4 +40,5 @@ Route::post('coin/sell', SellCoinController::class);
 Route::post('wallet/open', OpenNewWalletController::class);
 Route::get('wallet/{wallet_id}', GetWalletController::class);
 Route::get('coin/status/{coin_id}', GetCoinController::class);
+Route::get('wallet/{wallet_id}/balance',GetBalanceController::class);
 
